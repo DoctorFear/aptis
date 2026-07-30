@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptis Writing Keys Practice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body { 
+            background-color: #f4f6f9; 
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #2c3e50;
+        }
+        .main-card { 
+            background: #ffffff; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04); 
+            border: 1px solid #eef2f7;
+        }
+        .part-header {
+            border-bottom: 2px dashed #e2e8f0;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            color: #0d6efd;
+            font-weight: 700;
+        }
+        .question-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.25s ease;
+        }
+        .question-card:hover {
+            border-color: #93c5fd;
+            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.06);
+        }
+        
+        /* UI ĐÁP ÁN GỢI Ý ĐƯỢC CẢI TIẾN */
+        .answer-box { 
+            background: linear-gradient(135deg, #f0fdf4 0%, #e6f4ea 100%);
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-top: 16px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .answer-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: #15803d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #dcfce7;
+        }
+        .answer-content {
+            font-size: 0.98rem;
+            line-height: 1.6;
+            color: #1e293b;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .user-input {
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .user-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.15);
+        }
+        
+        /* Nút bấm toggle đáp án */
+        .toggle-btn {
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 50px;
+            transition: all 0.2s ease;
+        }
+        .btn-show-ans {
+            background-color: #ecfdf5;
+            color: #059669;
+            border: 1px solid #a7f3d0;
+        }
+        .btn-show-ans:hover {
+            background-color: #10b981;
+            color: #ffffff;
+            border-color: #10b981;
+        }
+        .btn-hide-ans {
+            background-color: #10b981;
+            color: #ffffff;
+            border: 1px solid #10b981;
+        }
+        .btn-hide-ans:hover {
+            background-color: #047857;
+            color: #ffffff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4" style="max-width: 920px;">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-primary"><i class="bi bi-pencil-square me-2"></i>Aptis Writing Practice</h2>
+            <p class="text-muted">Chọn đề, tự nhập câu trả lời và nhấn hiện đáp án để so sánh</p>
+        </div>
+
+        <!-- Toolbar chọn bộ đề và thao tác nhanh -->
+        <div class="row g-3 mb-4 align-items-center">
+            <div class="col-md-7">
+                <select id="testSelector" class="form-select form-select-lg shadow-sm rounded-3 border-0"></select>
+            </div>
+            <div class="col-md-5 text-md-end">
+                <button class="btn btn-outline-primary rounded-pill me-2 px-3" onclick="toggleAllAnswers(true)">
+                    <i class="bi bi-eye-fill me-1"></i> Hiện tất cả
+                </button>
+                <button class="btn btn-outline-secondary rounded-pill px-3" onclick="toggleAllAnswers(false)">
+                    <i class="bi bi-eye-slash-fill me-1"></i> Ẩn tất cả
+                </button>
+            </div>
+        </div>
+
+        <div class="main-card p-4">
+            <!-- Part 1 -->
+            <div class="mb-5">
+                <h4 class="part-header"><i class="bi bi-1-circle-fill me-2"></i>Part 1 - Short Answers (1-5 words)</h4>
+                <div id="q1Container"></div>
+            </div>
+
+            <!-- Part 2 -->
+            <div class="mb-5">
+                <h4 class="part-header"><i class="bi bi-2-circle-fill me-2"></i>Part 2 - Form Filling (20-30 words)</h4>
+                <div id="q2Container"></div>
+            </div>
+
+            <!-- Part 3 -->
+            <div class="mb-5">
+                <h4 class="part-header"><i class="bi bi-3-circle-fill me-2"></i>Part 3 - Chat Room Discussion (30-40 words)</h4>
+                <div id="q3Container"></div>
+            </div>
+
+            <!-- Part 4 -->
+            <div class="mb-5">
+                <h4 class="part-header"><i class="bi bi-4-circle-fill me-2"></i>Part 4 - Formal & Informal Email</h4>
+                <div id="q4Container"></div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    let allTests = {};
+
+    async function loadData() {
+        try {
+            const res = await fetch('writingkey_all.json');
+            allTests = await res.json();
+            renderTestSelector();
+        } catch (e) {
+            alert("Không tìm thấy file writingkey_all.json hoặc lỗi định dạng dữ liệu!");
+        }
+    }
+
+    function renderTestSelector() {
+        const select = document.getElementById('testSelector');
+        select.innerHTML = '';
+        Object.keys(allTests).forEach(key => {
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = `${allTests[key].key_id} - ${allTests[key].club_name}`;
+            select.appendChild(option);
+        });
+        select.onchange = () => renderCurrentTest(select.value);
+        if (Object.keys(allTests).length > 0) {
+            renderCurrentTest(Object.keys(allTests)[0]);
+        }
+    }
+
+    // Hàm đếm số từ trong chuỗi
+    function countWords(str) {
+        if (!str) return 0;
+        const cleanedStr = str.trim().replace(/\s+/g, ' ');
+        return cleanedStr ? cleanedStr.split(' ').length : 0;
+    }
+
+    // Lắng nghe sự kiện cập nhật số từ
+    function updateWordCount(inputEl, countElId) {
+        const wordCount = countWords(inputEl.value);
+        const countEl = document.getElementById(countElId);
+        if (countEl) {
+            countEl.textContent = `${wordCount} từ`;
+        }
+    }
+
+    function toggleAnswer(elementId) {
+        const box = document.getElementById(elementId);
+        const btn = document.getElementById('btn-' + elementId);
+        
+        if (box.classList.contains('d-none')) {
+            box.classList.remove('d-none');
+            btn.innerHTML = '<i class="bi bi-eye-slash-fill me-1"></i> Ẩn đáp án';
+            btn.classList.replace('btn-show-ans', 'btn-hide-ans');
+        } else {
+            box.classList.add('d-none');
+            btn.innerHTML = '<i class="bi bi-sparkles me-1"></i> Xem đáp án';
+            btn.classList.replace('btn-hide-ans', 'btn-show-ans');
+        }
+    }
+
+    function toggleAllAnswers(show) {
+        const boxes = document.querySelectorAll('.answer-box');
+        boxes.forEach(box => {
+            const btn = document.getElementById('btn-' + box.id);
+            if (show) {
+                box.classList.remove('d-none');
+                if (btn) {
+                    btn.innerHTML = '<i class="bi bi-eye-slash-fill me-1"></i> Ẩn đáp án';
+                    btn.classList.replace('btn-show-ans', 'btn-hide-ans');
+                }
+            } else {
+                box.classList.add('d-none');
+                if (btn) {
+                    btn.innerHTML = '<i class="bi bi-sparkles me-1"></i> Xem đáp án';
+                    btn.classList.replace('btn-hide-ans', 'btn-show-ans');
+                }
+            }
+        });
+    }
+
+    function renderCurrentTest(testId) {
+        const data = allTests[testId];
+        if (!data) return;
+
+        // Template chung cho Answer Box
+        const createAnswerBoxHTML = (boxId, answerText) => `
+            <div id="${boxId}" class="answer-box d-none">
+                <div class="answer-header">
+                    <i class="bi bi-patch-check-fill text-success fs-6"></i>
+                    <span>Đáp án gợi ý</span>
+                </div>
+                <div class="answer-content">${answerText}</div>
+            </div>
+        `;
+
+        // Part 1
+        let html1 = '';
+        for (let i = 1; i <= 5; i++) {
+            const q = data.questions1[`question1_${i}`];
+            const ans = data.questions1_answer[`question1_${i}_answer`];
+            const boxId = `ans-q1-${i}`;
+            const wordCounterId = `wc-q1-${i}`;
+            html1 += `
+                <div class="question-card">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <label class="form-label fw-bold mb-0 text-dark">Q${i}: ${q}</label>
+                        <button id="btn-${boxId}" class="btn btn-show-ans btn-sm toggle-btn" onclick="toggleAnswer('${boxId}')">
+                            <i class="bi bi-sparkles me-1"></i> Xem đáp án
+                        </button>
+                    </div>
+                    <input type="text" class="form-control user-input" placeholder="Nhập câu trả lời của bạn..." oninput="updateWordCount(this, '${wordCounterId}')">
+                    <div class="text-end mt-1"><small class="text-muted fw-semibold" id="${wordCounterId}">0 từ</small></div>
+                    ${createAnswerBoxHTML(boxId, ans)}
+                </div>`;
+        }
+        document.getElementById('q1Container').innerHTML = html1;
+
+        // Part 2
+        const q2AnsId = 'ans-q2';
+        const q2WcId = 'wc-q2';
+        document.getElementById('q2Container').innerHTML = `
+            <div class="question-card">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div><strong class="text-dark">Đề bài:</strong> ${data.questions2.question2}</div>
+                    <button id="btn-${q2AnsId}" class="btn btn-show-ans btn-sm toggle-btn" onclick="toggleAnswer('${q2AnsId}')">
+                        <i class="bi bi-sparkles me-1"></i> Xem đáp án
+                    </button>
+                </div>
+                <textarea class="form-control user-input" rows="3" placeholder="Viết câu trả lời của bạn (20-30 từ)..." oninput="updateWordCount(this, '${q2WcId}')"></textarea>
+                <div class="text-end mt-1"><small class="text-muted fw-semibold" id="${q2WcId}">0 từ</small></div>
+                ${createAnswerBoxHTML(q2AnsId, data.questions2_answer.question2)}
+            </div>
+        `;
+
+        // Part 3
+        let html3 = '';
+        for (let i = 1; i <= 3; i++) {
+            const q = data.questions3[`question3_${i}`];
+            const ans = data.questions3_answer[`question3_${i}_answer`];
+            const boxId = `ans-q3-${i}`;
+            const wordCounterId = `wc-q3-${i}`;
+            html3 += `
+                <div class="question-card">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <label class="form-label fw-bold mb-0 text-dark">Người dùng ${i}: ${q}</label>
+                        <button id="btn-${boxId}" class="btn btn-show-ans btn-sm toggle-btn" onclick="toggleAnswer('${boxId}')">
+                            <i class="bi bi-sparkles me-1"></i> Xem đáp án
+                        </button>
+                    </div>
+                    <textarea class="form-control user-input" rows="3" placeholder="Trả lời câu hỏi trong phòng chat (30-40 từ)..." oninput="updateWordCount(this, '${wordCounterId}')"></textarea>
+                    <div class="text-end mt-1"><small class="text-muted fw-semibold" id="${wordCounterId}">0 từ</small></div>
+                    ${createAnswerBoxHTML(boxId, ans)}
+                </div>`;
+        }
+        document.getElementById('q3Container').innerHTML = html3;
+
+        // Part 4
+        const q4_1_id = 'ans-q4-1';
+        const q4_2_id = 'ans-q4-2';
+        const q4_1_wc = 'wc-q4-1';
+        const q4_2_wc = 'wc-q4-2';
+        document.getElementById('q4Container').innerHTML = `
+            <div class="alert alert-primary bg-primary-subtle border-0 rounded-3 mb-4">
+                <i class="bi bi-info-circle-fill me-2"></i><strong>Chủ đề chung:</strong> ${data.questions4_main}
+            </div>
+            
+            <!-- Part 4.1 -->
+            <div class="question-card mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-bold mb-0 text-dark"><i class="bi bi-chat-heart me-2 text-primary"></i>Part 4.1 - Informal Email (cho bạn bè, ≈50 từ)</h6>
+                    <button id="btn-${q4_1_id}" class="btn btn-show-ans btn-sm toggle-btn" onclick="toggleAnswer('${q4_1_id}')">
+                        <i class="bi bi-sparkles me-1"></i> Xem đáp án
+                    </button>
+                </div>
+                <textarea class="form-control user-input" rows="4" placeholder="Viết thư thân mật cho bạn bè..." oninput="updateWordCount(this, '${q4_1_wc}')"></textarea>
+                <div class="text-end mt-1"><small class="text-muted fw-semibold" id="${q4_1_wc}">0 từ</small></div>
+                ${createAnswerBoxHTML(q4_1_id, data.question4_1_text_answer)}
+            </div>
+
+            <!-- Part 4.2 -->
+            <div class="question-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-bold mb-0 text-dark"><i class="bi bi-building me-2 text-primary"></i>Part 4.2 - Formal Email (cho quản lý/CLB, 120-150 từ)</h6>
+                    <button id="btn-${q4_2_id}" class="btn btn-show-ans btn-sm toggle-btn" onclick="toggleAnswer('${q4_2_id}')">
+                        <i class="bi bi-sparkles me-1"></i> Xem đáp án
+                    </button>
+                </div>
+                <textarea class="form-control user-input" rows="6" placeholder="Viết thư trang trọng gửi ban quản lý/CLB..." oninput="updateWordCount(this, '${q4_2_wc}')"></textarea>
+                <div class="text-end mt-1"><small class="text-muted fw-semibold" id="${q4_2_wc}">0 từ</small></div>
+                ${createAnswerBoxHTML(q4_2_id, data.question4_2_text_answer)}
+            </div>
+        `;
+    }
+
+    window.onload = loadData;
+</script>
+</body>
+</html>

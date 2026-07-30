@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptis Reading Question 5 - Flexible Selection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-body: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-main: #0f172a;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding-bottom: 60px;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 2.5rem 0 3.5rem 0;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.25);
+            margin-bottom: -1.5rem;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 10;
+        }
+
+        .card-custom {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Paragraph Box Styles */
+        .paragraph-box {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-left: 6px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .paragraph-box:hover {
+            box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.05);
+            border-color: #c7d2fe;
+        }
+
+        .paragraph-box.active-target {
+            border-color: var(--primary-color) !important;
+            border-left-color: var(--primary-color) !important;
+            background-color: #f5f3ff;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+        }
+
+        .paragraph-box.assigned {
+            border-left-color: #10b981;
+            background-color: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        .paragraph-box.assigned.active-target {
+            border-color: var(--primary-color) !important;
+            background-color: #ecfdf5;
+        }
+
+        /* Heading Item Styles */
+        .heading-item {
+            padding: 0.85rem 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 0.5rem;
+            transition: all 0.2s ease;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .heading-item:hover:not(.disabled) {
+            border-color: var(--primary-color);
+            background-color: #eef2ff;
+            transform: translateX(4px);
+        }
+
+        .heading-item.disabled {
+            background-color: #f1f5f9;
+            opacity: 0.55;
+            cursor: not-allowed;
+            border-color: #e2e8f0;
+        }
+
+        .btn-primary-custom {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 0.6rem 1.2rem;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: var(--primary-hover);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .sticky-sidebar {
+            position: sticky;
+            top: 24px;
+        }
+
+        .badge-step {
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.35em 0.75em;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header-section">
+        <div class="container text-center">
+            <span class="badge bg-white text-primary fw-bold px-3 py-2 rounded-pill mb-2 shadow-sm">APTIS ESOL PREPARATION</span>
+            <h1 class="fw-bold mb-2">Reading Part 5: Matching Headings</h1>
+            <p class="opacity-75 mb-0" id="topic-display">Đang tải chủ đề...</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container main-container">
+        <!-- Control Bar -->
+        <div class="card-custom p-3 mb-4 d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <!-- Selector chọn câu hỏi -->
+            <div class="d-flex align-items-center gap-2 flex-grow-1" style="max-width: 450px;">
+                <i class="bi bi-journal-bookmark-fill text-primary fs-5"></i>
+                <select id="question-select" class="form-select border-primary-subtle fw-medium" onchange="onQuestionSelectChange(this.value)">
+                    <option value="">-- Đang tải danh sách bài tập --</option>
+                </select>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-secondary rounded-pill px-3" onclick="loadRandomSet()">
+                    <i class="bi bi-shuffle me-1"></i> Ngẫu nhiên
+                </button>
+                <button class="btn btn-warning text-dark fw-bold rounded-pill px-3" onclick="showTips()">
+                    <i class="bi bi-lightbulb-fill me-1"></i> Xem mẹo
+                </button>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Left Column: Paragraphs -->
+            <div class="col-lg-7">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-text-paragraph text-primary me-2"></i>Nội dung đoạn văn</h5>
+                    <small class="text-muted">Click vào đoạn văn để chọn vị trí gán tiêu đề</small>
+                </div>
+                <div id="paragraphs"></div>
+            </div>
+
+            <!-- Right Column: Headings -->
+            <div class="col-lg-5">
+                <div class="card-custom p-4 sticky-sidebar">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-list-task text-primary me-2"></i>Chọn Tiêu đề</h5>
+                        <span class="badge bg-light text-dark border">Không trùng lặp</span>
+                    </div>
+                    <div id="headings"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="card-custom p-3 mt-4 text-center d-flex justify-content-center gap-3">
+            <button class="btn btn-primary-custom btn-lg px-5" onclick="checkAnswers()">
+                <i class="bi bi-check-circle-fill me-2"></i>Kiểm tra kết quả
+            </button>
+            <button class="btn btn-light border btn-lg px-4 fw-semibold" onclick="resetCurrent()">
+                <i class="bi bi-arrow-counterclockwise me-2"></i>Làm lại
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Mẹo -->
+    <div class="modal fade" id="tipModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow">
+                <div class="modal-header border-0 bg-light rounded-top-4">
+                    <h5 class="modal-title fw-bold text-primary">
+                        <i class="bi bi-magic me-2"></i>Mẹo giải nhanh bài tập này
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4" id="tipContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let rawData = null;
+        let currentSet = null;
+        let userAnswers = {}; // {paragraphIndex: headingIndex}
+        let activeParaIndex = 0;
+        let tipModalInstance = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            tipModalInstance = new bootstrap.Modal(document.getElementById('tipModal'));
+            initData();
+        });
+
+        async function initData() {
+            try {
+                const res = await fetch('question_5.json');
+                rawData = await res.json();
+
+                populateQuestionSelector();
+                loadQuestionByIndex(0); // Mặc định mở bài đầu tiên
+            } catch (e) {
+                console.error(e);
+                alert("Không thể tải file question_5.json! Vui lòng kiểm tra lại cấu trúc file data.");
+            }
+        }
+
+        // Tạo danh sách các đề thi trong thẻ Select
+        function populateQuestionSelector() {
+            const selectEl = document.getElementById('question-select');
+            selectEl.innerHTML = '';
+
+            const topics = Object.values(rawData.topic_name);
+            topics.forEach((topic, idx) => {
+                const option = document.createElement('option');
+                option.value = idx;
+                option.textContent = `Bài ${idx + 1}: ${topic}`;
+                selectEl.appendChild(option);
+            });
+        }
+
+        function onQuestionSelectChange(index) {
+            if (index !== "") {
+                loadQuestionByIndex(parseInt(index));
+            }
+        }
+
+        function loadQuestionByIndex(idx) {
+            const topics = Object.values(rawData.topic_name);
+
+            // Kiểm tra và lấy đáp án đúng nếu trong JSON có trường `correct_answers` hoặc `answers`
+            // Nếu không có, mặc định lấy thứ tự 0, 1, 2, 3...
+            const correctAns = rawData.answers ? rawData.answers[idx] : Array.from({length: rawData.paragraph_question5[idx].length}, (_, i) => i);
+
+            currentSet = {
+                index: idx,
+                topic: topics[idx],
+                paragraphs: rawData.paragraph_question5[idx],
+                headings: rawData.options[idx].filter(h => h !== ""),
+                correctAnswers: correctAns,
+                tips: rawData.meohoc ? rawData.meohoc[idx] : "Chưa có mẹo cho đề này."
+            };
+
+            // Đồng bộ giá trị trong thẻ <select>
+            document.getElementById('question-select').value = idx;
+
+            userAnswers = {};
+            activeParaIndex = 0;
+            renderQuestion();
+        }
+
+        function loadRandomSet() {
+            if (!rawData) return;
+            const totalSets = rawData.paragraph_question5.length;
+            const randomIdx = Math.floor(Math.random() * totalSets);
+            loadQuestionByIndex(randomIdx);
+        }
+
+        function setActivePara(index) {
+            activeParaIndex = index;
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            document.getElementById('topic-display').textContent = `Chủ đề: ${currentSet.topic}`;
+
+            // Render Paragraphs
+            let paraHTML = '';
+            currentSet.paragraphs.forEach((text, i) => {
+                const assignedHeadingIdx = userAnswers[i];
+                const isAssigned = assignedHeadingIdx !== undefined;
+                const isActive = (i === activeParaIndex);
+
+                paraHTML += `
+                    <div class="paragraph-box ${isAssigned ? 'assigned' : ''} ${isActive ? 'active-target' : ''}" 
+                         onclick="setActivePara(${i})">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge ${isActive ? 'bg-primary' : (isAssigned ? 'bg-success' : 'bg-secondary')} badge-step">
+                                ${isActive ? '👉 ĐANG CHỌN: ' : ''}ĐOẠN ${i + 1}
+                            </span>
+                            ${isAssigned ? `
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="fw-bold text-success small">
+                                        <i class="bi bi-check2-circle me-1"></i>Tiêu đề ${String.fromCharCode(65 + assignedHeadingIdx)}
+                                    </span>
+                                    <button class="btn btn-sm btn-outline-danger border-0 py-0 px-1" 
+                                            onclick="event.stopPropagation(); unassignHeading(${i})" title="Gỡ tiêu đề">
+                                        <i class="bi bi-x-circle-fill"></i>
+                                    </button>
+                                </div>
+                            ` : '<span class="text-muted small italic"><i class="bi bi-plus-circle me-1"></i>Chưa chọn tiêu đề</span>'}
+                        </div>
+                        <p class="mb-0 text-dark opacity-85 leading-relaxed">${text}</p>
+                    </div>`;
+            });
+            document.getElementById('paragraphs').innerHTML = paraHTML;
+
+            // Render Headings
+            let headHTML = '';
+            currentSet.headings.forEach((heading, i) => {
+                const usedByPara = Object.keys(userAnswers).find(paraIdx => userAnswers[paraIdx] === i);
+                const isUsed = usedByPara !== undefined;
+
+                headHTML += `
+                    <div class="heading-item ${isUsed ? 'disabled' : ''}" 
+                         onclick="${!isUsed ? `assignHeadingToActive(${i})` : ''}">
+                        <div class="d-flex align-items-start">
+                            <span class="text-primary fw-bold me-2">${String.fromCharCode(65 + i)}.</span>
+                            <div class="flex-grow-1 fw-medium">
+                                ${heading}
+                                ${isUsed ? `<div class="small text-success mt-1 fw-bold"><i class="bi bi-link-45deg"></i> Đã gắn vào Đoạn ${parseInt(usedByPara) + 1}</div>` : ''}
+                            </div>
+                        </div>
+                    </div>`;
+            });
+            document.getElementById('headings').innerHTML = headHTML;
+        }
+
+        function assignHeadingToActive(headingIndex) {
+            if (activeParaIndex === null || activeParaIndex === undefined) {
+                alert("Vui lòng click chọn một đoạn văn trước!");
+                return;
+            }
+
+            userAnswers[activeParaIndex] = headingIndex;
+
+            // Tự động chuyển active sang đoạn tiếp theo chưa gỡ/chưa chọn
+            const nextEmptyIndex = currentSet.paragraphs.findIndex((_, idx) => userAnswers[idx] === undefined);
+            if (nextEmptyIndex !== -1) {
+                activeParaIndex = nextEmptyIndex;
+            }
+
+            renderQuestion();
+        }
+
+        function unassignHeading(paraIndex) {
+            delete userAnswers[paraIndex];
+            activeParaIndex = paraIndex;
+            renderQuestion();
+        }
+
+        function checkAnswers() {
+            const totalPara = currentSet.paragraphs.length;
+            if (Object.keys(userAnswers).length < totalPara) {
+                alert(`Bạn mới chọn ${Object.keys(userAnswers).length}/${totalPara} tiêu đề! Vui lòng chọn đủ tất cả.`);
+                return;
+            }
+
+            let score = 0;
+            let resultHTML = '<h5 class="fw-bold mb-3"><i class="bi bi-bar-chart-line text-primary me-2"></i>Kết quả đánh giá</h5>';
+
+            currentSet.paragraphs.forEach((text, i) => {
+                const userChoice = userAnswers[i];
+                const correct = currentSet.correctAnswers[i];
+                const isRight = userChoice === correct;
+
+                if (isRight) score++;
+
+                resultHTML += `
+                    <div class="card-custom p-3 mb-3 border-start border-4 ${isRight ? 'border-success bg-success-subtle' : 'border-danger bg-danger-subtle'}">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <strong class="text-dark">Đoạn ${i + 1}</strong>
+                            <span class="badge ${isRight ? 'bg-success' : 'bg-danger'}">
+                                ${isRight ? '✅ Đúng' : '❌ Sai'}
+                            </span>
+                        </div>
+                        <div class="small text-secondary">
+                            <div><strong>Lựa chọn của bạn:</strong> ${String.fromCharCode(65 + userChoice)}. ${currentSet.headings[userChoice]}</div>
+                            ${!isRight ? `<div class="text-success fw-bold mt-1"><strong>Đáp án đúng:</strong> ${String.fromCharCode(65 + correct)}. ${currentSet.headings[correct]}</div>` : ''}
+                        </div>
+                    </div>`;
+            });
+
+            resultHTML += `
+                <div class="card-custom p-4 text-center mt-4 bg-white">
+                    <h4 class="mb-1">Tổng điểm của bạn</h4>
+                    <div class="display-5 fw-bold text-primary my-2">${score} / ${totalPara}</div>
+                    <p class="text-muted mb-0">${score === totalPara ? '🎉 Tuyệt vời! Bạn làm đúng toàn bộ!' : 'Hãy xem lại các câu sai để rút kinh nghiệm nhé.'}</p>
+                </div>`;
+
+            document.getElementById('paragraphs').innerHTML = resultHTML;
+        }
+
+        function resetCurrent() {
+            userAnswers = {};
+            activeParaIndex = 0;
+            renderQuestion();
+        }
+
+        function showTips() {
+            document.getElementById('tipContent').innerHTML = `
+                <div class="alert alert-info border-0 shadow-sm mb-0">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    ${currentSet ? currentSet.tips : "Chưa có mẹo cho đề này."}
+                </div>`;
+            tipModalInstance.show();
+        }
+    </script>
+</body>
+</html>

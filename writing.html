@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mẹo Viết Thư Aptis - Question 4</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bs-primary-rgb: 13, 110, 253;
+            --bg-canvas: #f8fafc;
+        }
+        body {
+            background-color: var(--bg-canvas);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #334155;
+            line-height: 1.6;
+        }
+        .header-card {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 30px 24px;
+            box-shadow: 0 10px 25px rgba(13, 110, 253, 0.15);
+        }
+        .section-card {
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .template-box {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-left: 4px solid #0d6efd;
+            border-radius: 8px;
+            padding: 18px 20px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            white-space: pre-wrap;
+            color: #1e293b;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        
+        /* Highlight placeholders [ngoặc vuông] */
+        .ph {
+            color: #dc3545;
+            font-weight: 700;
+            background-color: #ffe6e6;
+            padding: 1px 6px;
+            border-radius: 4px;
+            border: 1px dashed #f5c2c7;
+        }
+        
+        /* Interactive Opinion Tooltips */
+        .ph-opinion {
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
+            border-bottom: 2px cubic-bezier(0.4, 0, 0.2, 1) #dc3545;
+        }
+
+        /* Styling cho Badge từ vựng */
+        .badge-pos {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+            font-size: 0.78rem;
+            padding: 3px 8px;
+            margin: 2px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        .badge-neg {
+            background-color: #f8d7da;
+            color: #842029;
+            border: 1px solid #f5c2c7;
+            font-size: 0.78rem;
+            padding: 3px 8px;
+            margin: 2px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .btn-nav {
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container py-4" style="max-width: 960px;">
+        
+        <!-- Bottom Action Button -->
+        <div class="text-center my-4">
+            <a href="writing_keys.html" class="btn btn-primary btn-lg rounded-pill shadow px-5 py-3 btn-nav">
+                <i class="bi bi-arrow-right-circle-fill me-2"></i>Luyện tập Writing
+            </a>
+        </div>
+
+
+
+        <!-- Hướng dẫn xào nấu ChatGPT -->
+        <div class="alert alert-info border-0 shadow-sm rounded-4 mb-4 d-flex align-items-start">
+            <i class="bi bi-robot fs-3 text-info me-3 mt-1"></i>
+            <div>
+                <strong class="text-dark">Mẹo luyện tập thông minh:</strong>
+                <p class="mb-0 text-secondary" style="font-size: 0.92rem;">
+                    Đây là khung Form mẫu chuẩn giúp bạn không bị lạc đề và đảm bảo đủ số từ. Bạn có thể sao chép mẫu này, nhập vào <strong>ChatGPT</strong> với câu lệnh: <i>"Hãy xào nấu lại bài viết sau thành một phiên bản khác nhưng giữ nguyên cấu trúc và ý chính giúp tôi"</i> để tạo ra bài viết mang phong cách riêng của bạn.
+                </p>
+            </div>
+        </div>
+
+        <!-- SECTION 1: FORM MẪU -->
+        <div class="section-card">
+            <h4 class="fw-bold text-primary mb-3"><i class="bi bi-file-earmark-code-fill me-2"></i>1. Khung Form Mẫu Chuẩn</h4>
+            
+            <!-- Email cho bạn -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6 class="fw-bold text-dark mb-0">
+                        <i class="bi bi-envelope-heart me-1 text-danger"></i> Email cho bạn (≈50 từ, tiếng Anh)
+                    </h6>
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill" onclick="copyText('template1')">
+                        <i class="bi bi-clipboard me-1"></i> Copy Form
+                    </button>
+                </div>
+                <div class="template-box" id="template1">Hi <span class="ph">[Tên của người bạn - tiếng việt không dấu]</span>,
+I’ve just read the notice about <span class="ph">[sự kiện (nội dung câu hỏi)]</span>. Honestly, I feel <span class="ph">[delighted / disappointed / surprised]</span> because I had expected <span class="ph">[suy nghĩ của bạn]</span>.
+For now, I plan to <span class="ph">[kiến nghị của bạn]</span>. What do you think?
+Best,
+<span class="ph">[Tên bạn]</span></div>
+            </div>
+
+            <!-- Email cho Quản lý -->
+            <div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6 class="fw-bold text-dark mb-0">
+                        <i class="bi bi-building-fill-check me-1 text-primary"></i> Email cho quản lý CLB (120–150 từ, tiếng Anh)
+                    </h6>
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill" onclick="copyText('template2')">
+                        <i class="bi bi-clipboard me-1"></i> Copy Form
+                    </button>
+                </div>
+                <div class="template-box" id="template2">Dear <span class="ph">[Sir/Madam]</span>,
+My name is <span class="ph">[Tên đầy đủ của bạn]</span>, and I am a member of <span class="ph">[Tên câu lạc bộ]</span>. I’m writing to share my opinion about the recent announcement regarding <span class="ph">[đề bài]</span>.
+
+In my view, the plan is <span class="ph ph-opinion" data-bs-toggle="tooltip" data-bs-html="true" title="<b>Đánh giá kế hoạch (khách quan)</b><br><b>+ Tích cực:</b> excellent, promising, practical, meaningful, useful, valuable, beneficial, inspiring, innovative<br><b>- Tiêu cực:</b> unclear, unrealistic, unnecessary, unhelpful, confusing, ineffective">[opinion 1] <i class="bi bi-info-circle-fill text-primary ms-1"></i></span> and it also makes me feel <span class="ph ph-opinion" data-bs-toggle="tooltip" data-bs-html="true" title="<b>Cảm xúc cá nhân</b><br><b>+ Tích cực:</b> excited, pleased, satisfied, encouraged, motivated, happy, hopeful, confident<br><b>- Tiêu cực:</b> worried, concerned, disappointed, confused, surprised, upset">[opinion 2] <i class="bi bi-info-circle-fill text-primary ms-1"></i></span>. If possible, I suggest <span class="ph">[kiến nghị 1]</span> because <span class="ph">[nguyên nhân]</span>. In addition, we could <span class="ph">[Kiến nghị 2]</span> to improve <span class="ph">[để cải thiện gì đó]</span>.
+
+A short Q&A session and a feedback form would also make the event more useful and interactive. Thank you for considering my ideas. I look forward to your response.
+Sincerely,
+<span class="ph">[Tên của bạn]</span></div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: GỢI Ý TỪ VỰNG DÙNG CHO OPINION -->
+        <div class="section-card">
+            <h4 class="fw-bold text-primary mb-3"><i class="bi bi-spellcheck me-2"></i>2. Gợi ý từ vựng cho Opinion 1 & Opinion 2</h4>
+            <p class="text-muted small mb-3"><i class="bi bi-cursor-fill me-1"></i>Bạn cũng có thể rê chuột trực tiếp vào các ô <strong>[opinion 1]</strong> và <strong>[opinion 2]</strong> ở mẫu trên để mở danh sách từ này.</p>
+            
+            <div class="row g-3">
+                <!-- Opinion 1 -->
+                <div class="col-md-6">
+                    <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-2">
+                            <i class="bi bi-check-circle-fill text-success me-1"></i> Opinion 1 - Đánh giá kế hoạch (Khách quan)
+                        </h6>
+                        <div class="mb-2">
+                            <small class="fw-semibold text-success d-block mb-1">Tích cực:</small>
+                            <span class="badge-pos">excellent</span>
+                            <span class="badge-pos">promising</span>
+                            <span class="badge-pos">practical</span>
+                            <span class="badge-pos">meaningful</span>
+                            <span class="badge-pos">useful</span>
+                            <span class="badge-pos">valuable</span>
+                            <span class="badge-pos">beneficial</span>
+                            <span class="badge-pos">inspiring</span>
+                            <span class="badge-pos">innovative</span>
+                            <span class="badge-pos">creative</span>
+                            <span class="badge-pos">effective</span>
+                            <span class="badge-pos">important</span>
+                            <span class="badge-pos">necessary</span>
+                        </div>
+                        <div>
+                            <small class="fw-semibold text-danger d-block mb-1">Tiêu cực:</small>
+                            <span class="badge-neg">unclear</span>
+                            <span class="badge-neg">unrealistic</span>
+                            <span class="badge-neg">unnecessary</span>
+                            <span class="badge-neg">unhelpful</span>
+                            <span class="badge-neg">confusing</span>
+                            <span class="badge-neg">ineffective</span>
+                            <span class="badge-neg">disappointing</span>
+                            <span class="badge-neg">problematic</span>
+                            <span class="badge-neg">risky</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opinion 2 -->
+                <div class="col-md-6">
+                    <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-2">
+                            <i class="bi bi-emoji-smile-fill text-warning me-1"></i> Opinion 2 - Cảm xúc cá nhân
+                        </h6>
+                        <div class="mb-2">
+                            <small class="fw-semibold text-success d-block mb-1">Tích cực:</small>
+                            <span class="badge-pos">excited</span>
+                            <span class="badge-pos">pleased</span>
+                            <span class="badge-pos">satisfied</span>
+                            <span class="badge-pos">encouraged</span>
+                            <span class="badge-pos">motivated</span>
+                            <span class="badge-pos">happy</span>
+                            <span class="badge-pos">hopeful</span>
+                            <span class="badge-pos">confident</span>
+                            <span class="badge-pos">inspired</span>
+                            <span class="badge-pos">proud</span>
+                        </div>
+                        <div>
+                            <small class="fw-semibold text-danger d-block mb-1">Tiêu cực:</small>
+                            <span class="badge-neg">worried</span>
+                            <span class="badge-neg">concerned</span>
+                            <span class="badge-neg">disappointed</span>
+                            <span class="badge-neg">confused</span>
+                            <span class="badge-neg">surprised</span>
+                            <span class="badge-neg">upset</span>
+                            <span class="badge-neg">uncertain</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: VÍ DỤ MINH HỌA -->
+        <div class="section-card">
+            <h4 class="fw-bold text-primary mb-3"><i class="bi bi-book-half me-2"></i>3. Ví dụ áp dụng thực tế (Book Club)</h4>
+            
+            <!-- Đề bài -->
+            <div class="bg-warning-subtle border border-warning rounded-3 p-3 mb-4">
+                <h6 class="fw-bold text-warning-emphasis mb-2"><i class="bi bi-file-text-fill me-1"></i>Đề bài mẫu (Tiếng Anh):</h6>
+                <p class="fst-italic text-dark mb-2">
+                    "BOOK CLUB: Our club wants to organize an event for the public by inviting a famous author as a speaker. What kind of author do you suggest? What topic should the speaker speak on? I am writing to ask all members for their suggestions. Please send me your ideas in an email. - The manager"
+                </p>
+                <div class="small text-muted border-top border-warning-subtle pt-2">
+                    • Write an email to your friend, who is also a member of the group. (50 words)<br>
+                    • Write an email to the manager of the club. Tell the manager about your opinion. (120–150 words)
+                </div>
+            </div>
+
+            <!-- Bài viết mẫu cho Bạn -->
+            <div class="mb-4">
+                <h6 class="fw-bold text-dark"><i class="bi bi-person-fill me-1 text-danger"></i>Ví dụ Email cho bạn (≈50 từ):</h6>
+                <div class="p-3 bg-light rounded-3 border">
+                    Hi Minh,<br>
+                    I’ve just read the Book Club notice about inviting a famous author. Honestly, I feel excited because I expected an inspiring talk.<br>
+                    For now, I plan to join the event and prepare some questions. What do you think?<br>
+                    Best,<br>An
+                </div>
+            </div>
+
+            <!-- Bài viết mẫu cho Quản lý -->
+            <div>
+                <h6 class="fw-bold text-dark"><i class="bi bi-person-badge-fill me-1 text-primary"></i>Ví dụ Email cho quản lý (120–150 từ):</h6>
+                <div class="p-3 bg-light rounded-3 border">
+                    Dear Manager,<br><br>
+                    My name is An Nguyen, and I am a member of the Book Club. I’m writing to share my opinion about the announcement regarding inviting a famous author.<br><br>
+                    In my view, the plan is excellent and it also makes me feel inspired. If possible, I suggest inviting a bestselling contemporary novelist because their works are relatable to both students and the general public. In addition, we could ask the speaker to focus on “Stories that Mirror Modern Life” to improve engagement and social awareness.<br><br>
+                    I also recommend including a short reading from the author’s latest book, followed by a Q&A session. A feedback form at the end would help us gather opinions for future events. Thank you for considering my ideas. I look forward to your response.<br><br>
+                    Sincerely,<br>
+                    An Nguyen
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle (bao gồm Popper cho Tooltip) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Khởi tạo tất cả Bootstrap Tooltips
+        document.addEventListener('DOMContentLoaded', function () {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+
+        // Hàm sao chép văn bản
+        function copyText(elementId) {
+            const element = document.getElementById(elementId);
+            const textToCopy = element.innerText;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert('Đã sao chép khung bài viết mẫu vào bộ nhớ tạm!');
+            }).catch(err => {
+                console.error('Lỗi khi sao chép: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

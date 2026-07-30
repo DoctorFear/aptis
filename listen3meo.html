@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mẹo Nhớ Đáp Án Aptis - Part 4 / 4 Speaker</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --bg-body: #f8fafc;
+            --card-radius: 16px;
+        }
+        body {
+            background-color: var(--bg-body);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #0f172a;
+        }
+        .header-box {
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+            color: white;
+            border-radius: var(--card-radius);
+            padding: 2.5rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.25);
+        }
+        .rules-card {
+            background: #ffffff;
+            border-left: 5px solid #2563eb;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .rule-badge {
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .badge-man { background-color: #e0f2fe; color: #0369a1; }
+        .badge-woman { background-color: #fce7f3; color: #be185d; }
+        .badge-both { background-color: #f3e8ff; color: #6b21a8; }
+
+        .tip-card {
+            background: white;
+            border-radius: var(--card-radius);
+            border: 1px solid #e2e8f0;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .tip-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1);
+            border-color: #93c5fd;
+        }
+        .img-container {
+            background-color: #f1f5f9;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid #e2e8f0;
+            position: relative;
+            cursor: pointer;
+        }
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .img-container:hover img {
+            transform: scale(1.08);
+        }
+        .img-container::after {
+            content: '\F68B';
+            font-family: 'bootstrap-icons';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: white;
+            background: rgba(0,0,0,0.4);
+            padding: 8px 14px;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .img-container:hover::after {
+            opacity: 1;
+        }
+
+        .answer-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+        }
+        .answer-badge-female {
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+            background: #eff6ff;
+            color: #2563eb;
+            border: 1px solid #93c5fd;
+            padding: 4px 12px;
+            border-radius: 8px;
+        }
+        .answer-badge-male {
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #86efac;
+            padding: 4px 12px;
+            border-radius: 8px;
+        }
+
+        .search-box {
+            border-radius: 50rem;
+            padding-left: 2.75rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #cbd5e1;
+        }
+        .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+        .btn-toggle-view {
+            border-radius: 50rem;
+        }
+        
+        /* Table Styles */
+        .table-responsive {
+            background: white;
+            border-radius: var(--card-radius);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .table img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .table img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container py-4" style="max-width: 1200px;">
+        <!-- Header -->
+        <div class="header-box text-center">
+            <h1 class="fw-bold mb-2"><i class="bi bi-lightbulb me-2"></i>Mẹo Nhớ Đáp Án Aptis Listening</h1>
+            <p class="mb-0 text-white-50 fs-5">Dạng 4 người nói (Part 3 / Part 4) • Quy tắc quy đổi số & Mẹo suy luận</p>
+        </div>
+
+        <!-- Khối Quy Tắc Nhớ -->
+        <div class="rules-card">
+            <h5 class="fw-bold text-primary mb-3"><i class="bi bi-journal-bookmark-fill me-2"></i>Quy tắc mã hóa đáp án</h5>
+            <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="rule-badge badge-man"><i class="bi bi-gender-male me-1"></i> M (1) – Man (Số 1)</span>
+                <span class="rule-badge badge-woman"><i class="bi bi-gender-female me-1"></i> W (2) – Woman (Số 2)</span>
+                <span class="rule-badge badge-both"><i class="bi bi-people-fill me-1"></i> B (0) – Both (Số 0)</span>
+            </div>
+            
+            <div class="p-3 bg-light rounded-3 mb-3 border">
+                <strong><i class="bi bi-star-fill text-warning me-1"></i>Ví dụ áp dụng:</strong>
+                Chủ đề <em>Music and Singer</em> có mẹo là <strong>"Ca sĩ sinh năm 2010"</strong>
+                <ul class="mb-0 mt-2 small text-secondary">
+                    <li>Nữ đọc trước: <strong>2010</strong> (Woman = 2, Both = 0, Man = 1, Both = 0)</li>
+                    <li>Nam đọc trước (Đảo 1 ↔ 2): <strong>1020</strong> (Man = 1, Both = 0, Woman = 2, Both = 0)</li>
+                </ul>
+            </div>
+
+            <div class="row g-2 text-danger small fw-semibold">
+                <div class="col-md-6">
+                    <i class="bi bi-exclamation-triangle-fill me-1"></i> <strong>Lưu ý 1:</strong> Từ giây thứ 12 trở về trước chỉ là đoạn giới thiệu. Đến <strong>giây thứ 13</strong> mới bắt đầu biết ai là người nói trước (Nam hay Nữ).
+                </div>
+                <div class="col-md-6">
+                    <i class="bi bi-exclamation-triangle-fill me-1"></i> <strong>Lưu ý 2:</strong> Các con số mẹo mặc định bên dưới được chuẩn hóa cho <strong>Nữ đọc trước</strong>. Nếu nghe thấy Nam đọc trước, chỉ cần đảo <strong>1 ↔ 2</strong>, giữ nguyên <strong>0</strong>.
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls Bar -->
+        <div class="row g-3 align-items-center mb-4">
+            <div class="col-md-6 position-relative">
+                <i class="bi bi-search search-icon fs-5"></i>
+                <input type="text" id="searchInput" class="form-control form-control-lg search-box" placeholder="Tìm theo Chủ đề, Mẹo hoặc Đáp án...">
+            </div>
+            <div class="col-md-6 d-flex justify-content-md-end gap-2">
+                <div class="btn-group" role="group">
+                    <button id="btnCardView" class="btn btn-outline-primary active btn-toggle-view">
+                        <i class="bi bi-grid-fill me-1"></i> Dạng Thẻ
+                    </button>
+                    <button id="btnTableView" class="btn btn-outline-primary btn-toggle-view">
+                        <i class="bi bi-table me-1"></i> Dạng Bảng
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card View Container -->
+        <div id="cardView" class="row g-4"></div>
+
+        <!-- Table View Container -->
+        <div id="tableView" class="table-responsive d-none p-3">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 90px;">Hình ảnh</th>
+                        <th>Chủ đề</th>
+                        <th>Mẹo dễ nhớ</th>
+                        <th class="text-center" style="width: 140px;">Nữ đọc trước</th>
+                        <th class="text-center" style="width: 140px;">Nam đọc trước</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Phóng To Ảnh (Lightbox) -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-transparent border-0">
+                <div class="modal-body p-0 position-relative text-center">
+                    <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 fs-4" data-bs-dismiss="modal" aria-label="Close" style="z-index: 10;"></button>
+                    <img id="modalImage" src="" class="img-fluid rounded-4 shadow-lg" alt="Phóng to ảnh" style="max-height: 85vh; object-fit: contain;">
+                    <div id="modalCaption" class="text-white mt-3 fw-bold fs-5"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script dữ liệu & tương tác -->
+    <script>
+        const tipData = [
+            { id: 1, topic: "Music and Singer", tip: "Ca sĩ sinh năm 2010", answer: "2010", image: "meocau_images/meocau1.png" },
+            { id: 2, topic: "The Local Central", tip: "Trung tâm địa phương được xây năm 2011", answer: "2011", image: "meocau_images/meocau2.png" },
+            { id: 3, topic: "Urban Farming", tip: "Ông nông dân có 10 vợ và 20 người con", answer: "1020", image: "meocau_images/meocau3.png" },
+            { id: 4, topic: "Information Technology", tip: "Công nghệ thế kỷ 21 có nhiều người có thể gõ bàn phím máy tính bằng 10 ngón tay", answer: "2110", image: "meocau_images/meocau4.png" },
+            { id: 5, topic: "Art", tip: "Nghệ sĩ 21 năm kinh nghiệm mà không vẽ được 1 bức tranh nào nên hồn.", answer: "2101", image: "meocau_images/meocau5.png" },
+            { id: 6, topic: "Politics", tip: "Chính trị không (0) thể có 2 vua 1 nước nếu vậy sẽ không (0) tồn tại được.", answer: "0210", image: "meocau_images/meocau6.png" },
+            { id: 7, topic: "Community Design", tip: "Tôi không (0) muốn thiết kế 1 ngôi nhà có 2 tầng mà không (0) có ban công.", answer: "0120", image: "meocau_images/meocau7.png" },
+            { id: 8, topic: "University", tip: "Trường đại học không (0) có 1 sinh viên nào trong 2 năm liền, 1 năm sau thì phá sản.", answer: "0121", image: "meocau_images/meocau8.png" },
+            { id: 9, topic: "Subject and Beauty", tip: "1 chàng trai tán 2 cô gái đẹp không (0) biết sao mà làm 2 người đều có bầu.", answer: "1202", image: "meocau_images/meocau9.png" },
+            { id: 10, topic: "Change in Workplace", tip: "12 năm cống hiến cho công việc, nhưng không một (01) ai công nhận năng lực của tôi", answer: "1201", image: "meocau_images/meocau10.png" },
+            { id: 11, topic: "Actor", tip: "Tìm thấy hóa thạch của một diễn viên thời cổ đại có niên đại 1200 năm", answer: "1200", image: "meocau_images/meocau11.png" },
+            { id: 12, topic: "Internet", tip: "Tiền mạng internet của bạn không (0) phải 200k mà là miễn phí.", answer: "0200", image: "meocau_images/meocau12.png" },
+            { id: 13, topic: "Homeschooling", tip: "12 năm học chữ, 20 năm chưa chắc học được cuộc đời.", answer: "1220", image: "meocau_images/meocau13.png" },
+            { id: 14, topic: "Children and Teenagers with Technology", tip: "Không (0) biết công nghệ thì không (0) thể lấy được vợ ở tuổi 21", answer: "0021", image: "meocau_images/meocau14.png" },
+            { id: 15, topic: "Environmental volunteer program", tip: "Không (0) thể có 2 chương trình tình nguyện về môi trường trong tháng 12.", answer: "0212", image: "meocau_images/meocau15.png" },
+            { id: 16, topic: "Local Culture diffirent", tip: "2 năm qua, văn hóa địa phương không có 1 điểm khác, dù chỉ 1 chút.", answer: "2011", image: "meocau_images/meocau16.png" },
+            { id: 17, topic: "Work Business / Business and Culture", tip: "1 công ty khởi nghiệp không (0) có vốn ban đầu, sau 2 năm mở được 2 chi nhánh.", answer: "1022", image: "meocau_images/meocau17.png" }
+        ];
+
+        // Hàm tính đáp án khi Nam đọc trước (Đảo 1 thành 2, 2 thành 1, giữ 0)
+        function swapGenderAnswer(code) {
+            return code.split('').map(char => {
+                if (char === '1') return '2';
+                if (char === '2') return '1';
+                return char;
+            }).join('');
+        }
+
+        const cardView = document.getElementById('cardView');
+        const tableBody = document.getElementById('tableBody');
+        const searchInput = document.getElementById('searchInput');
+        const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+        const modalImage = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+
+        // Phóng to ảnh
+        function zoomImage(imgUrl, topicTitle) {
+            modalImage.src = imgUrl;
+            modalCaption.textContent = topicTitle;
+            imageModal.show();
+        }
+
+        // Render Dạng Thẻ
+        function renderCards(data) {
+            cardView.innerHTML = '';
+            if (data.length === 0) {
+                cardView.innerHTML = `<div class="col-12 text-center text-muted py-5">Không tìm thấy mẹo nhớ phù hợp!</div>`;
+                return;
+            }
+            data.forEach(item => {
+                const maleAnswer = swapGenderAnswer(item.answer);
+                const col = document.createElement('div');
+                col.className = 'col-md-6 col-lg-4';
+                col.innerHTML = `
+                    <div class="tip-card">
+                        <div class="img-container" onclick="zoomImage('${item.image}', '${item.topic}')">
+                            <img src="${item.image}" alt="${item.topic}" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'text-muted small p-3 text-center\'><i class=\'bi bi-image fs-2 d-block mb-1\'></i>${item.image}</div>';">
+                        </div>
+                        <div class="p-3 d-flex flex-column flex-grow-1">
+                            <div class="mb-2">
+                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill">#${item.id}</span>
+                                <h5 class="fw-bold text-dark mt-2 mb-1">${item.topic}</h5>
+                            </div>
+                            <p class="text-secondary small flex-grow-1 mb-3">${item.tip}</p>
+                            
+                            <div class="answer-box">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="small text-muted"><i class="bi bi-gender-female text-danger me-1"></i>Nữ trước:</span>
+                                    <span class="answer-badge-female">${item.answer}</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="small text-muted"><i class="bi bi-gender-male text-primary me-1"></i>Nam trước:</span>
+                                    <span class="answer-badge-male">${maleAnswer}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                cardView.appendChild(col);
+            });
+        }
+
+        // Render Dạng Bảng
+        function renderTable(data) {
+            tableBody.innerHTML = '';
+            if (data.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4">Không tìm thấy dữ liệu phù hợp!</td></tr>`;
+                return;
+            }
+            data.forEach(item => {
+                const maleAnswer = swapGenderAnswer(item.answer);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <img src="${item.image}" alt="${item.topic}" onclick="zoomImage('${item.image}', '${item.topic}')" onerror="this.onerror=null; this.replaceWith('${item.image}');">
+                    </td>
+                    <td class="fw-bold text-dark">${item.topic}</td>
+                    <td class="text-secondary">${item.tip}</td>
+                    <td class="text-center">
+                        <span class="answer-badge-female">${item.answer}</span>
+                    </td>
+                    <td class="text-center">
+                        <span class="answer-badge-male">${maleAnswer}</span>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Lọc dữ liệu tìm kiếm
+        function filterData(searchTerm) {
+            const term = searchTerm.toLowerCase().trim();
+            return tipData.filter(item => {
+                const maleAnswer = swapGenderAnswer(item.answer);
+                return item.topic.toLowerCase().includes(term) ||
+                       item.tip.toLowerCase().includes(term) ||
+                       item.answer.includes(term) ||
+                       maleAnswer.includes(term);
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const filtered = filterData(e.target.value);
+            renderCards(filtered);
+            renderTable(filtered);
+        });
+
+        // Chuyển đổi Card / Table
+        const btnCardView = document.getElementById('btnCardView');
+        const btnTableView = document.getElementById('btnTableView');
+        const tableView = document.getElementById('tableView');
+
+        btnCardView.addEventListener('click', () => {
+            btnCardView.classList.add('active');
+            btnTableView.classList.remove('active');
+            cardView.classList.remove('d-none');
+            tableView.classList.add('d-none');
+        });
+
+        btnTableView.addEventListener('click', () => {
+            btnTableView.classList.add('active');
+            btnCardView.classList.remove('active');
+            tableView.classList.remove('d-none');
+            cardView.classList.add('d-none');
+        });
+
+        // Khởi tạo trang
+        renderCards(tipData);
+        renderTable(tipData);
+    </script>
+</body>
+</html> 

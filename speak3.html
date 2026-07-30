@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptis Speaking Part 3 - Practice</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --bg-body: #f8fafc;
+            --card-radius: 20px;
+        }
+        body {
+            background-color: var(--bg-body);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #0f172a;
+            padding-bottom: 50px;
+        }
+        .header-box {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: white;
+            border-radius: var(--card-radius);
+            padding: 1.8rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.25);
+        }
+        .main-card {
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        
+        /* Layout 2 ảnh hiển thị nét */
+        .picture-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding: 20px;
+            background: #0f172a; /* Nền tối làm nổi bật chi tiết ảnh */
+            border-bottom: 1px solid #e2e8f0;
+        }
+        @media (max-width: 576px) {
+            .picture-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        .picture-wrapper {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #1e293b;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .picture-label {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(4px);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 50rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+        .picture-img {
+            width: 100%;
+            height: 280px;
+            object-fit: contain; /* Giữ nguyên tỉ lệ sắc nét của ảnh, không bị móp/xé */
+            display: block;
+            transition: transform 0.3s ease;
+            image-rendering: -webkit-optimize-contrast; /* Tăng độ nét ảnh trên trình duyệt */
+        }
+        .picture-wrapper:hover .picture-img {
+            transform: scale(1.02);
+        }
+
+        /* Tabs chuyển đổi câu hỏi */
+        .tabs-container {
+            padding: 20px 24px 10px;
+        }
+        .nav-pills-custom {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 5px;
+            display: flex;
+            gap: 4px;
+        }
+        .nav-pills-custom .nav-link-custom {
+            flex: 1;
+            padding: 10px 14px;
+            text-align: center;
+            border-radius: 9px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #64748b;
+            border: none;
+            background: transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .nav-pills-custom .nav-link-custom.active {
+            background: white;
+            color: var(--primary-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Thân nội dung câu hỏi */
+        .content-body {
+            padding: 10px 24px 24px;
+        }
+        .question-box {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 18px 20px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Khung Sample Answer */
+        .sample-answer-box {
+            display: none;
+            background: #eff6ff;
+            border-left: 5px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 18px 20px;
+            color: #1e3a8a;
+            animation: fadeIn 0.3s ease;
+        }
+        .sample-answer-box.show {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Nút điều hướng & Nhảy trang */
+        .nav-controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            max-width: 960px;
+            margin: 24px auto 0;
+            padding: 0 10px;
+        }
+        .jump-page-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 6px 12px;
+            border-radius: 50rem;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+        .btn-audio-sm {
+            padding: 6px 14px;
+            border-radius: 50rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" style="max-width: 1000px;">
+        <!-- Header -->
+        <div class="header-box text-center">
+            <h1 class="fw-bold mb-1 fs-3"><i class="bi bi-images me-2"></i>Aptis Speaking Part 3</h1>
+            <p class="mb-0 text-white-50">So sánh 2 bức ảnh & Trả lời 3 câu hỏi liên quan</p>
+        </div>
+
+        <!-- Main Card -->
+        <div class="main-card">
+            <!-- Section chứa 2 ảnh sắc nét -->
+            <div class="picture-section" id="picturesContainer">
+                <div class="picture-wrapper" title="Click để phóng to ảnh 1" onclick="zoomImage(document.getElementById('img1').src)">
+                    <span class="picture-label">Picture 1</span>
+                    <img id="img1" src="" class="picture-img" alt="Picture 1">
+                </div>
+                <div class="picture-wrapper" title="Click để phóng to ảnh 2" onclick="zoomImage(document.getElementById('img2').src)">
+                    <span class="picture-label">Picture 2</span>
+                    <img id="img2" src="" class="picture-img" alt="Picture 2">
+                </div>
+            </div>
+
+            <!-- Tabs chọn câu hỏi (1, 2, 3) -->
+            <div class="tabs-container">
+                <div class="nav-pills-custom">
+                    <button class="nav-link-custom active" onclick="switchQuestionTab(1)">
+                        <i class="bi bi-1-circle me-1"></i> Q1: So sánh
+                    </button>
+                    <button class="nav-link-custom" onclick="switchQuestionTab(2)">
+                        <i class="bi bi-2-circle me-1"></i> Q2: Lý do
+                    </button>
+                    <button class="nav-link-custom" onclick="switchQuestionTab(3)">
+                        <i class="bi bi-3-circle me-1"></i> Q3: Quan điểm
+                    </button>
+                </div>
+            </div>
+
+            <!-- Thân câu hỏi -->
+            <div class="content-body">
+                <!-- Nội dung câu hỏi -->
+                <div class="question-box">
+                    <p class="question-text" id="questionText">Đang tải câu hỏi...</p>
+                    <button class="btn btn-light btn-audio-sm text-primary border" onclick="speakCurrentQuestion()">
+                        <i class="bi bi-volume-up-fill me-1"></i>Đọc câu hỏi
+                    </button>
+                </div>
+
+                <!-- Nút toggle và khung Sample Answer -->
+                <button id="btnSample" class="btn btn-outline-primary w-100 rounded-3 fw-bold py-2.5 mb-3" onclick="toggleSample()">
+                    <i class="bi bi-lightbulb-fill me-1"></i> Xem Sample Answer (Mẫu trả lời)
+                </button>
+
+                <div id="sampleAnswerBox" class="sample-answer-box">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="fs-6"><i class="bi bi-stars me-1"></i> Sample Answer Mẫu:</strong>
+                        <button class="btn btn-primary btn-audio-sm" onclick="speakSampleAnswer()">
+                            <i class="bi bi-volume-up-fill me-1"></i>Nghe đọc mẫu
+                        </button>
+                    </div>
+                    <p class="mb-0 fs-6" id="sampleAnswerText" style="line-height: 1.65; text-align: justify;"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Điều hướng & Chọn trang/câu hỏi trực tiếp -->
+        <div class="nav-controls">
+            <button class="btn btn-outline-secondary px-4 py-2 rounded-pill fw-semibold" onclick="prevQuestionSet()">
+                <i class="bi bi-arrow-left me-1"></i> Đề trước
+            </button>
+
+            <!-- Ô chuyển câu/trang nhanh -->
+            <div class="jump-page-box">
+                <span class="fw-semibold text-secondary small">Đề:</span>
+                <input type="number" id="pageInput" min="1" class="form-control form-control-sm text-center fw-bold" style="width: 60px; border-radius: 8px;" placeholder="1">
+                <span class="fw-semibold text-secondary small" id="totalPagesText">/ 1</span>
+                <button class="btn btn-sm btn-primary rounded-pill px-3 ms-1 fw-semibold" onclick="jumpToPage()">Đi</button>
+            </div>
+
+            <button class="btn btn-primary px-4 py-2 rounded-pill fw-semibold" onclick="nextQuestionSet()">
+                Đề sau <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Phóng to Ảnh (Image Zoom) -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-transparent border-0">
+                <div class="modal-body p-0 text-center position-relative">
+                    <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></style></button>
+                    <img id="modalImage" src="" class="img-fluid rounded-3 shadow-lg" style="max-height: 85vh; object-fit: contain;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script logic -->
+<script>
+    let questionsData = [];
+    let currentSetIndex = 0;   // Chỉ số bộ đề (0-based)
+    let currentSubQuestion = 1; // 1: Q1 (So sánh), 2: Q2 (Lý do), 3: Q3 (Quan điểm)
+    let imageModalObj = null;
+
+    // Tải dữ liệu JSON
+    async function loadData() {
+        try {
+            const res = await fetch('speaking_question3.json');
+            questionsData = await res.json();
+            
+            // Khởi tạo Modal phóng ảnh
+            imageModalObj = new bootstrap.Modal(document.getElementById('imageModal'));
+            
+            renderCurrentSet();
+        } catch (e) {
+            document.getElementById('questionText').innerHTML = 
+                `<span class="text-danger"><i class="bi bi-exclamation-triangle-fill me-1"></i>Không tìm thấy file <strong>speaking_question3.json</strong>. Vui lòng kiểm tra lại thư mục!</span>`;
+        }
+    }
+
+    // Render bộ đề hiện tại
+    function renderCurrentSet() {
+        if (!questionsData || questionsData.length === 0) return;
+
+        const currentSet = questionsData[currentSetIndex];
+
+        // Cập nhật Ảnh
+        document.getElementById('img1').src = currentSet.urlpic1 || 'https://via.placeholder.com/600x400?text=Picture+1';
+        document.getElementById('img2').src = currentSet.urlpic2 || 'https://via.placeholder.com/600x400?text=Picture+2';
+
+        // Cập nhật thông tin phân trang
+        document.getElementById('pageInput').value = currentSetIndex + 1;
+        document.getElementById('totalPagesText').textContent = `/ ${questionsData.length}`;
+
+        // Render Sub-Question
+        switchQuestionTab(currentSubQuestion);
+    }
+
+    // Chuyển đổi giữa các Sub-Question (1, 2, 3)
+    function switchQuestionTab(tabNumber) {
+        currentSubQuestion = tabNumber;
+        const currentSet = questionsData[currentSetIndex];
+        if (!currentSet) return;
+
+        // Update CSS Active cho Tabs
+        const tabs = document.querySelectorAll('.nav-link-custom');
+        tabs.forEach((tab, index) => {
+            tab.classList.toggle('active', index + 1 === tabNumber);
+        });
+
+        // Lấy câu hỏi và đáp án mẫu tương ứng
+        let qText = "";
+        let sampleText = "";
+
+        if (tabNumber === 1) {
+            qText = currentSet.question1 || "Compare the two pictures.";
+            sampleText = currentSet.question1_answer || currentSet.answer1 || "Không có mẫu trả lời.";
+        } else if (tabNumber === 2) {
+            qText = currentSet.question2 || "Answer question 2.";
+            sampleText = currentSet.question2_answer || currentSet.answer2 || "Không có mẫu trả lời.";
+        } else if (tabNumber === 3) {
+            qText = currentSet.question3 || "Answer question 3.";
+            sampleText = currentSet.question3_answer || currentSet.answer3 || "Không có mẫu trả lời.";
+        }
+
+        // Dùng innerHTML cho cả câu hỏi và Sample Answer để render thẻ HTML đẹp mắt
+        document.getElementById('questionText').innerHTML = qText;
+        document.getElementById('sampleAnswerText').innerHTML = sampleText;
+
+        // Reset trạng thái ẩn sample answer khi đổi tab
+        document.getElementById('sampleAnswerBox').classList.remove('show');
+        document.getElementById('btnSample').innerHTML = `<i class="bi bi-lightbulb-fill me-1"></i> Xem Sample Answer (Mẫu trả lời)`;
+    }
+
+    // Hiện/Ẩn Sample Answer
+    function toggleSample() {
+        const box = document.getElementById('sampleAnswerBox');
+        const btn = document.getElementById('btnSample');
+        const isShown = box.classList.contains('show');
+
+        if (isShown) {
+            box.classList.remove('show');
+            btn.innerHTML = `<i class="bi bi-lightbulb-fill me-1"></i> Xem Sample Answer (Mẫu trả lời)`;
+        } else {
+            box.classList.add('show');
+            btn.innerHTML = `<i class="bi bi-eye-slash-fill me-1"></i> Ẩn Sample Answer`;
+        }
+    }
+
+    // Nhảy tới trang/câu cụ thể
+    function jumpToPage() {
+        const val = parseInt(document.getElementById('pageInput').value);
+        if (val && val >= 1 && val <= questionsData.length) {
+            currentSetIndex = val - 1;
+            renderCurrentSet();
+        } else {
+            alert(`Vui lòng nhập số trang từ 1 đến ${questionsData.length}`);
+            document.getElementById('pageInput').value = currentSetIndex + 1;
+        }
+    }
+
+    // Phóng to ảnh khi nhấn vào
+    function zoomImage(src) {
+        if (!src) return;
+        document.getElementById('modalImage').src = src;
+        imageModalObj.show();
+    }
+
+    // Đọc Tiếng Anh (SpeechSynthesis)
+    function speakText(text) {
+        if (!('speechSynthesis' in window)) {
+            alert("Trình duyệt không hỗ trợ tính năng đọc tự động!");
+            return;
+        }
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function speakCurrentQuestion() {
+        const text = document.getElementById('questionText').textContent || document.getElementById('questionText').innerText;
+        speakText(text);
+    }
+
+    function speakSampleAnswer() {
+        const text = document.getElementById('sampleAnswerText').textContent || document.getElementById('sampleAnswerText').innerText;
+        speakText(text);
+    }
+
+    // Chuyển Đề bài (Previous / Next)
+    function nextQuestionSet() {
+        if (currentSetIndex < questionsData.length - 1) {
+            currentSetIndex++;
+            renderCurrentSet();
+        } else {
+            alert("Bạn đã ở đề cuối cùng!");
+        }
+    }
+
+    function prevQuestionSet() {
+        if (currentSetIndex > 0) {
+            currentSetIndex--;
+            renderCurrentSet();
+        } else {
+            alert("Bạn đang ở đề đầu tiên!");
+        }
+    }
+
+    window.onload = loadData;
+</script>
+</body>
+</html>

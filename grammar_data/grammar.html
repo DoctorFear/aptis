@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptis Grammar - Danh Sách Đề Ôn Luyện</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --bg-body: #f8fafc;
+            --card-radius: 20px;
+        }
+        body {
+            background-color: var(--bg-body);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #0f172a;
+            padding-bottom: 50px;
+        }
+        .header-box {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            color: white;
+            border-radius: var(--card-radius);
+            padding: 2.5rem 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px -5px rgba(13, 110, 253, 0.25);
+        }
+        .test-card {
+            background: white;
+            border-radius: var(--card-radius);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.5rem;
+        }
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(13, 110, 253, 0.12);
+            border-color: #93c5fd;
+        }
+        .icon-box {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: #eff6ff;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" style="max-width: 1000px;">
+        <!-- Header -->
+        <div class="header-box text-center">
+            <h1 class="fw-bold mb-2 fs-2"><i class="bi bi-journal-check me-2"></i>Aptis Grammar Master</h1>
+            <p class="mb-0 text-white-50 fs-6">Tổng hợp đề luyện tập Ngữ pháp & Từ vựng theo định dạng Aptis</p>
+        </div>
+
+        <!-- Khung thông báo / Mẹo chung -->
+        <div class="alert alert-primary bg-white border-primary border-opacity-25 rounded-4 p-4 mb-4 shadow-sm">
+            <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-lightbulb-fill text-warning fs-1"></i>
+                <div>
+                    <h5 class="fw-bold text-primary mb-1">Hướng Dẫn Ôn Luyện</h5>
+                    <p class="mb-0 text-secondary small">
+                        Mỗi bài Test bao gồm đầy đủ các Part về từ vựng và ngữ pháp. Hãy chọn một bài đề luyện tập, hệ thống sẽ tự động tính điểm và hiển thị đáp án chi tiết.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Danh sách Đề Ôn Luyện -->
+        <div class="row g-4">
+
+            <!-- Grammar Test 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="test-card">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="icon-box">
+                                <i class="bi bi-1-circle-fill"></i>
+                            </div>
+                            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">Full Test</span>
+                        </div>
+                        <h4 class="fw-bold fs-5 text-dark mb-2">Grammar Test 1</h4>
+                        <p class="text-secondary small mb-3">Bộ câu hỏi ngữ pháp & từ vựng tổng hợp Part 1 - 6.</p>
+                    </div>
+                    <a href="grammar_1.html" class="btn btn-primary w-100 rounded-pill fw-semibold mt-2">
+                        Làm bài ngay <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Grammar Test 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="test-card">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="icon-box">
+                                <i class="bi bi-2-circle-fill"></i>
+                            </div>
+                            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">Full Test</span>
+                        </div>
+                        <h4 class="fw-bold fs-5 text-dark mb-2">Grammar Test 2</h4>
+                        <p class="text-secondary small mb-3">Bộ câu hỏi ngữ pháp & từ vựng tổng hợp Part 1 - 6.</p>
+                    </div>
+                    <a href="grammar_2.html" class="btn btn-primary w-100 rounded-pill fw-semibold mt-2">
+                        Làm bài ngay <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Grammar Test 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="test-card">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="icon-box">
+                                <i class="bi bi-3-circle-fill"></i>
+                            </div>
+                            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">Full Test</span>
+                        </div>
+                        <h4 class="fw-bold fs-5 text-dark mb-2">Grammar Test 3</h4>
+                        <p class="text-secondary small mb-3">Bộ câu hỏi ngữ pháp & từ vựng tổng hợp Part 1 - 6.</p>
+                    </div>
+                    <a href="grammar_3.html" class="btn btn-primary w-100 rounded-pill fw-semibold mt-2">
+                        Làm bài ngay <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Grammar Test 4 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="test-card">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="icon-box">
+                                <i class="bi bi-4-circle-fill"></i>
+                            </div>
+                            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">Full Test</span>
+                        </div>
+                        <h4 class="fw-bold fs-5 text-dark mb-2">Grammar Test 4</h4>
+                        <p class="text-secondary small mb-3">Bộ câu hỏi ngữ pháp & từ vựng tổng hợp Part 1 - 6.</p>
+                    </div>
+                    <a href="grammar_4.html" class="btn btn-primary w-100 rounded-pill fw-semibold mt-2">
+                        Làm bài ngay <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Grammar Test 5 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="test-card">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="icon-box">
+                                <i class="bi bi-5-circle-fill"></i>
+                            </div>
+                            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-semibold">Full Test</span>
+                        </div>
+                        <h4 class="fw-bold fs-5 text-dark mb-2">Grammar Test 5</h4>
+                        <p class="text-secondary small mb-3">Bộ câu hỏi ngữ pháp & từ vựng tổng hợp Part 1 - 6.</p>
+                    </div>
+                    <a href="grammar_5.html" class="btn btn-primary w-100 rounded-pill fw-semibold mt-2">
+                        Làm bài ngay <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
