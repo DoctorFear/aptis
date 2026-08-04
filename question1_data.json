@@ -2494,5 +2494,57 @@
       "questionEnd": "before public speaking.",
       "correctAnswer": "nervous"
     }
+  ],
+  [
+    {
+      "questionStart": "Our neighbors are always very ",
+      "answerOptions": [
+        "noisy",
+        "friendly",
+        "early"
+      ],
+      "questionEnd": "whenever we need help.",
+      "correctAnswer": "friendly"
+    },
+    {
+      "questionStart": "The children next door like to ",
+      "answerOptions": [
+        "shout",
+        "play",
+        "sleep"
+      ],
+      "questionEnd": "in the garden every afternoon.",
+      "correctAnswer": "play"
+    },
+    {
+      "questionStart": "We usually ",
+      "answerOptions": [
+        "borrow",
+        "break",
+        "forget"
+      ],
+      "questionEnd": "sugar or eggs from our neighbors when we run out.",
+      "correctAnswer": "borrow"
+    },
+    {
+      "questionStart": "It's important to keep the shared hallway ",
+      "answerOptions": [
+        "dirty",
+        "loud",
+        "tidy"
+      ],
+      "questionEnd": "for everyone's comfort.",
+      "correctAnswer": "tidy"
+    },
+    {
+      "questionStart": "Our new neighbors just moved in ",
+      "answerOptions": [
+        "yesterday",
+        "never",
+        "rarely"
+      ],
+      "questionEnd": "and we haven't met them yet.",
+      "correctAnswer": "yesterday"
+    }
   ]
 ]

@@ -2,12 +2,12 @@
 import json
 import requests
 
-AUTH_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjEyMTYsImVtYWlsIjoibWlpdHN1aDI2MiIsImZ1bGxOYW1lIjoiTWlpdHN1aCIsImlzVmVyaWZpZWQiOjEsImV4cGlyZWRBdCI6IjIwMjYtMDgtMTJUMDk6MDQ6NDQuMDAwWiIsImlzQWRtaW4iOmZhbHNlLCJqdGkiOiI2MGRmZGIzYi1kNTQzLTQ2MmItODk4MC00N2UyY2NkNmI1N2EiLCJpYXQiOjE3ODQ2NTMxODgsImV4cCI6MTc4NDczOTU4OH0.mHdYzRutYHSGOY8GthMJH2QxKgOtzZiDqedWzpvd2xQ"  # giữ nguyên token của bạn
+AUTH_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjEyMTYsImVtYWlsIjoibWlpdHN1aDI2MiIsImZ1bGxOYW1lIjoiTWlpdHN1aCIsImlzVmVyaWZpZWQiOjEsImV4cGlyZWRBdCI6IjIwMjYtMDgtMTJUMDk6MDQ6NDQuMDAwWiIsImlzQWRtaW4iOmZhbHNlLCJqdGkiOiJhYTA0ZmQ1My04OWU5LTQwMDktOTk5Ny05Nzc0ODM0MDIwZWEiLCJpYXQiOjE3ODU4MDQzMDIsImV4cCI6MTc4NTg5MDcwMn0.9poL6uC8yTwEB-vg14PCLDrse5KbCVRPXgUJAU_Uoh8"  # giữ nguyên token của bạn
 
-API_URL = "https://aptiskey.com/api/reading-question1-data"
+API_URL = "https://aptiskey.com/api/listening-question1-13-data"
 HEADERS = {
     "User-Agent": "Mozilla/5.0",
-    "Referer": "https://aptiskey.com/reading_question1.html",
+    "Referer": "https://aptiskey.com/listening_question1_13.html",
     "X-Requested-With": "XMLHttpRequest",
 }
 COOKIES = {"auth_token": AUTH_TOKEN}
@@ -28,7 +28,7 @@ else:
         data = resp.json()
         print(f"✅ Thành công! Số câu hỏi: {len(data)}")
 
-        with open("question1_data.json", "w", encoding="utf-8") as f:
+        with open("listening_question1_13.json", "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
         print("Đã lưu file question1_data.json")
 

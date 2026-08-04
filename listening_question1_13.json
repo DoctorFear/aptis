@@ -2518,5 +2518,29 @@
     ],
     "correctAnswer": "Complete the assignments on time",
     "transcript": "I need to talk to some of you about your homework. Over the past few weeks, I have noticed that several assignments were handed in late, and this is starting to affect your progress in class. Completing your work on time is very important because it helps you practice what we learn during lessons. I especially want one student to complete the assignments on time from now on so that his grades can improve before the end of the term."
+  },
+  {
+    "heading": "Question 55",
+    "audioUrl": "audio/question1_13/20_aptiskey_com_wifi.mp3",
+    "question": "What does the customer complain about?",
+    "options": [
+      "The coffee was cold",
+      "The wifi was too slow",
+      "The shop was too noisy"
+    ],
+    "correctAnswer": "The wifi was too slow",
+    "transcript": "I stopped by a new coffee shop yesterday to get some work done before a meeting. The coffee itself was really good, and the seats were comfortable too. But I ended up leaving earlier than planned because the wifi kept disconnecting every few minutes, and when it did work, it was extremely slow. I tried asking the staff about it, and they said a few other customers had mentioned the same problem that morning. I probably won't bring my laptop there again unless they fix the connection."
+  },
+  {
+    "heading": "Question 56",
+    "audioUrl": "audio/question1_13/21_aptiskey_com_gym.mp3",
+    "question": "What does the woman complain about?",
+    "options": [
+      "The gym was too crowded",
+      "Her yoga class was cancelled",
+      "The membership fee increased"
+    ],
+    "correctAnswer": "Her yoga class was cancelled",
+    "transcript": "I went to the gym yesterday evening after a long day at work, mainly because I was looking forward to my usual yoga class. When I got there, the place was actually quieter than normal, which was nice for a change. But then I noticed a small notice on the studio door saying the yoga session had been cancelled because the instructor was sick. Nobody had messaged us about it beforehand, so I ended up just walking on the treadmill for a bit before heading home. I was a little annoyed, but these things happen sometimes."
   }
 ]
