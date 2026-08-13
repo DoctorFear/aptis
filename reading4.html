@@ -81,6 +81,17 @@
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
         }
 
+        /* Instruction Note Box */
+        .instruction-note {
+            background-color: #f1f5f9;
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+
         /* Opinion Cards */
         .opinion-card {
             background: var(--surface);
@@ -350,45 +361,65 @@
 
         function renderOpinions() {
             let html = '';
-            currentSet.texts.forEach((text, i) => {
-                const label = String.fromCharCode(65 + i);
+            
+            // Lọc ra các đoạn văn thực sự (loại bỏ dòng note hướng dẫn)
+            const actualTexts = currentSet.texts.filter(text => {
+                const plainText = text.replace(/<[^>]*>/g, '').trim();
+                return !plainText.toLowerCase().includes("here is the perspective");
+            });
+
+            // Nếu mảng ban đầu có câu hướng dẫn, lấy nó ra làm banner ghi chú
+            const noteText = currentSet.texts.find(text => text.toLowerCase().includes("here is the perspective"));
+            if (noteText) {
+                html += `<div class="instruction-note fw-semibold">${noteText}</div>`;
+            }
+
+            // Duyệt 4 đoạn văn thật A, B, C, D
+            actualTexts.forEach((text, i) => {
+                const label = String.fromCharCode(65 + i); // 0 -> 'A', 1 -> 'B', 2 -> 'C', 3 -> 'D'
+                
+                // Loại bỏ tiền tố "A:", "B:", ... bị dư trong chuỗi nếu có
+                const cleanText = text.replace(/^<strong>[A-Z]:<\/strong>\s*/i, '').replace(/^[A-Z]:\s*/i, '');
+
                 html += `
                     <div class="opinion-card">
                         <div class="d-flex align-items-center mb-2">
                             <span class="person-badge">${label}</span>
                             <h6 class="fw-bold mb-0 text-dark">Person ${label}</h6>
                         </div>
-                        <p class="mb-0 text-secondary lh-lg fs-6">${text}</p>
+                        <p class="mb-0 text-secondary lh-lg fs-6">${cleanText}</p>
                     </div>`;
             });
+
             document.getElementById('opinions-container').innerHTML = html;
         }
 
         function renderQuestions() {
             let html = '';
+            const personOptions = ['A', 'B', 'C', 'D'];
+
             currentSet.questions.forEach((q, qIndex) => {
                 html += `
-                    <div class="question-card" id="card-q${qIndex}">
+                    <div class="question-card mb-3" id="card-q${qIndex}">
                         <div class="fw-bold mb-2 text-dark fs-6">
                             ${qIndex + 1}. ${q.question}
                         </div>
                         <div class="d-flex flex-column gap-1 ms-1">
-                            ${q.options.map((opt) => {
-                                if (!opt) return '';
-                                return `
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" 
-                                               name="q${qIndex}" id="q${qIndex}_${opt}" 
-                                               value="${opt}" onchange="saveAnswer(${qIndex}, '${opt}')">
-                                        <label class="form-check-label option-label" for="q${qIndex}_${opt}">
-                                            Person ${opt}
-                                        </label>
-                                    </div>`;
-                            }).join('')}
+                            ${personOptions.map((opt) => `
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" 
+                                           name="q${qIndex}" id="q${qIndex}_${opt}" 
+                                           value="${opt}" onchange="saveAnswer(${qIndex}, '${opt}')">
+                                    <label class="form-check-label option-label" for="q${qIndex}_${opt}">
+                                        Person ${opt}
+                                    </label>
+                                </div>
+                            `).join('')}
                         </div>
                         <div class="answer-feedback mt-2 fw-semibold fs-7" id="feedback-q${qIndex}"></div>
                     </div>`;
             });
+            
             document.getElementById('questions-container').innerHTML = html;
         }
 
@@ -424,7 +455,7 @@
                 } else {
                     card.classList.add('is-wrong');
                     feedback.className = "answer-feedback mt-2 fw-semibold fs-7 text-danger";
-                    feedback.innerHTML = `<i class="bi bi-x-circle-fill me-1"></i> Chọn: ${userAns} | Đáp án đúng: <b>${correctAns}</b>`;
+                    feedback.innerHTML = `<i class="bi bi-x-circle-fill me-1"></i> Chọn: Person ${userAns} | Đáp án đúng: <b>Person ${correctAns}</b>`;
                 }
             });
 
