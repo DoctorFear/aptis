@@ -167,16 +167,7 @@
         </div>
 
         <div class="row g-4">
-            <!-- Left Column: Paragraphs -->
-            <div class="col-lg-7">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="fw-bold mb-0"><i class="bi bi-text-paragraph text-primary me-2"></i>Nội dung đoạn văn</h5>
-                    <small class="text-muted">Click vào đoạn văn để chọn vị trí gán tiêu đề</small>
-                </div>
-                <div id="paragraphs"></div>
-            </div>
-
-            <!-- Right Column: Headings -->
+            <!-- Left Column: Headings (đã đảo vị trí) -->
             <div class="col-lg-5">
                 <div class="card-custom p-4 sticky-sidebar">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -185,6 +176,15 @@
                     </div>
                     <div id="headings"></div>
                 </div>
+            </div>
+
+            <!-- Right Column: Paragraphs (đã đảo vị trí) -->
+            <div class="col-lg-7">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-text-paragraph text-primary me-2"></i>Nội dung đoạn văn</h5>
+                    <small class="text-muted">Click vào đoạn văn để chọn vị trí gán tiêu đề</small>
+                </div>
+                <div id="paragraphs"></div>
             </div>
         </div>
 
@@ -266,11 +266,17 @@
             // Nếu không có, mặc định lấy thứ tự 0, 1, 2, 3...
             const correctAns = rawData.answers ? rawData.answers[idx] : Array.from({length: rawData.paragraph_question5[idx].length}, (_, i) => i);
 
+            // Gắn originalIndex cho từng heading rồi xáo trộn thứ tự hiển thị
+            const rawHeadings = rawData.options[idx].filter(h => h !== "");
+            const shuffledHeadings = shuffleArray(
+                rawHeadings.map((text, originalIndex) => ({ text, originalIndex }))
+            );
+
             currentSet = {
                 index: idx,
                 topic: topics[idx],
                 paragraphs: rawData.paragraph_question5[idx],
-                headings: rawData.options[idx].filter(h => h !== ""),
+                headings: shuffledHeadings,
                 correctAnswers: correctAns,
                 tips: rawData.meohoc ? rawData.meohoc[idx] : "Chưa có mẹo cho đề này."
             };
@@ -281,6 +287,16 @@
             userAnswers = {};
             activeParaIndex = 0;
             renderQuestion();
+        }
+
+        // Xáo trộn mảng theo thuật toán Fisher-Yates
+        function shuffleArray(arr) {
+            const result = [...arr];
+            for (let i = result.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [result[i], result[j]] = [result[j], result[i]];
+            }
+            return result;
         }
 
         function loadRandomSet() {
@@ -341,7 +357,7 @@
                         <div class="d-flex align-items-start">
                             <span class="text-primary fw-bold me-2">${String.fromCharCode(65 + i)}.</span>
                             <div class="flex-grow-1 fw-medium">
-                                ${heading}
+                                ${heading.text}
                                 ${isUsed ? `<div class="small text-success mt-1 fw-bold"><i class="bi bi-link-45deg"></i> Đã gắn vào Đoạn ${parseInt(usedByPara) + 1}</div>` : ''}
                             </div>
                         </div>
@@ -384,9 +400,12 @@
             let resultHTML = '<h5 class="fw-bold mb-3"><i class="bi bi-bar-chart-line text-primary me-2"></i>Kết quả đánh giá</h5>';
 
             currentSet.paragraphs.forEach((text, i) => {
-                const userChoice = userAnswers[i];
-                const correct = currentSet.correctAnswers[i];
-                const isRight = userChoice === correct;
+                const userChoice = userAnswers[i]; // vị trí hiển thị (đã bị xáo trộn)
+                const userChoiceOriginal = currentSet.headings[userChoice].originalIndex;
+                const correctOriginal = currentSet.correctAnswers[i]; // originalIndex đúng
+                // Tìm vị trí hiển thị hiện tại của đáp án đúng (vì đã xáo trộn)
+                const correctDisplayIdx = currentSet.headings.findIndex(h => h.originalIndex === correctOriginal);
+                const isRight = userChoiceOriginal === correctOriginal;
 
                 if (isRight) score++;
 
@@ -399,8 +418,8 @@
                             </span>
                         </div>
                         <div class="small text-secondary">
-                            <div><strong>Lựa chọn của bạn:</strong> ${String.fromCharCode(65 + userChoice)}. ${currentSet.headings[userChoice]}</div>
-                            ${!isRight ? `<div class="text-success fw-bold mt-1"><strong>Đáp án đúng:</strong> ${String.fromCharCode(65 + correct)}. ${currentSet.headings[correct]}</div>` : ''}
+                            <div><strong>Lựa chọn của bạn:</strong> ${String.fromCharCode(65 + userChoice)}. ${currentSet.headings[userChoice].text}</div>
+                            ${!isRight ? `<div class="text-success fw-bold mt-1"><strong>Đáp án đúng:</strong> ${String.fromCharCode(65 + correctDisplayIdx)}. ${currentSet.headings[correctDisplayIdx].text}</div>` : ''}
                         </div>
                     </div>`;
             });
